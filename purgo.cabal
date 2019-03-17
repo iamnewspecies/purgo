@@ -1,0 +1,116 @@
+name:           purgo
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/purescript-go/purgo#readme>
+homepage:       https://github.com/purescript-go/purgo#readme
+bug-reports:    https://github.com/purescript-go/purgo/issues
+author:         Jordan Mackie
+maintainer:     jmackie@protonmail.com
+copyright:      2019 Jordan Mackie
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    README.md
+
+source-repository head
+    type: git
+    location: https://github.com/purescript-go/purgo
+
+library
+    hs-source-dirs:
+        src
+    exposed-modules:
+        Language.Go
+    other-modules:
+        Language.Go.AST
+        Language.Go.AST.Traversals
+        Language.Go.Ann
+        Language.Go.Compile
+        Language.Go.Compile.Assert
+        Language.Go.Constants
+        Language.Go.Crash
+        Language.Go.Environment
+        Language.Go.File
+        Language.Go.Names
+        Language.Go.Tidy
+        Language.Go.Orphans
+        Language.Go.Printer
+        Language.Go.Types
+        Cheapskate.Plate
+        Paths_purgo
+    build-depends:
+        base >=4.7 && <5
+      , purescript > 0.12.0
+      -- NOTE: Try and reuse purescript's dependencies where
+      -- possible, in the interest of build times!
+      , containers
+      , filepath
+      , microlens-platform
+      , mtl
+      , prettyprinter
+      , text
+    ghc-options:
+        -Weverything
+        -fno-warn-missing-import-lists
+        -fno-warn-all-missed-specialisations
+        -fno-warn-safe
+        -fno-warn-unsafe
+    default-language:
+        Haskell2010
+
+executable purgo
+    hs-source-dirs:
+        purgo
+    main-is:
+        Main.hs
+    other-modules:
+        Paths_purgo
+        Command.Compile
+    build-depends:
+        base >=4.7 && <5
+      , purescript > 0.12.0
+      , aeson
+      , bytestring
+      , containers
+      , directory
+      , filepath
+      , mtl
+      , purgo
+      , stm
+      , text
+    ghc-options:
+        -threaded -rtsopts -with-rtsopts=-N
+
+        -Weverything
+        -fno-warn-missing-import-lists
+        -fno-warn-all-missed-specialisations
+        -fno-warn-safe
+        -fno-warn-unsafe
+    default-language:
+        Haskell2010
+
+test-suite purgo-test
+    hs-source-dirs:
+        test
+    main-is:
+      Spec.hs
+    type:
+      exitcode-stdio-1.0
+    other-modules:
+        Paths_purgo
+    build-depends:
+        base >=4.7 && <5
+      , purgo
+    ghc-options:
+        -threaded
+        -rtsopts
+        -with-rtsopts=-N
+
+        -Weverything
+        -fno-warn-missing-import-lists
+        -fno-warn-all-missed-specialisations
+        -fno-warn-safe
+        -fno-warn-unsafe
+    default-language:
+        Haskell2010
